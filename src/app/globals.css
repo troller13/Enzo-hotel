@@ -1,0 +1,208 @@
+@import "tailwindcss";
+
+:root {
+  --background: #F2EDE4;
+  --foreground: #1c1c1c;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-gold: #7c6a46;
+  --color-cream: #EDE8DF;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+.font-poppins  { font-family: "Poppins",        "Segoe UI", Arial, sans-serif; }
+.font-raleway  { font-family: "Raleway",         "Segoe UI", Arial, sans-serif; }
+.font-dancing  { font-family: "Dancing Script",  "Brush Script MT", cursive;   }
+
+/* ─────────────────────────────────────────────
+   KEYFRAMES
+───────────────────────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+@keyframes fadeDown {
+  from { opacity: 0; transform: translateY(-30px); }
+  to   { opacity: 1; transform: translateY(0);     }
+}
+@keyframes fadeLeft {
+  from { opacity: 0; transform: translateX(60px); }
+  to   { opacity: 1; transform: translateX(0);    }
+}
+@keyframes fadeRight {
+  from { opacity: 0; transform: translateX(-60px); }
+  to   { opacity: 1; transform: translateX(0);     }
+}
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.88); }
+  to   { opacity: 1; transform: scale(1);    }
+}
+@keyframes shimmerMove {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+@keyframes lineGrow {
+  from { width: 0; }
+  to   { width: 138px; }
+}
+@keyframes pulse-soft {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(124,106,70,.4); }
+  50%       { box-shadow: 0 0 0 12px rgba(124,106,70,0); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+@keyframes navbarSlide {
+  from { opacity: 0; transform: translateY(-100%); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ─────────────────────────────────────────────
+   REVEAL — controlled via JS (IntersectionObserver)
+───────────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transition: opacity 0.7s cubic-bezier(.22,1,.36,1),
+              transform 0.7s cubic-bezier(.22,1,.36,1);
+}
+.reveal.from-up    { transform: translateY(48px); }
+.reveal.from-down  { transform: translateY(-32px); }
+.reveal.from-left  { transform: translateX(60px); }
+.reveal.from-right { transform: translateX(-60px); }
+.reveal.scale      { transform: scale(0.9); }
+.reveal.visible {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* ─────────────────────────────────────────────
+   NAVBAR
+───────────────────────────────────────────── */
+.navbar-enter { animation: navbarSlide 0.6s cubic-bezier(.22,1,.36,1) both; }
+
+.nav-link {
+  position: relative;
+  font-weight: 500;
+  color: #fff;
+  transition: color 0.25s;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0;
+  width: 0; height: 2px;
+  background: #fff;
+  border-radius: 2px;
+  transition: width 0.35s cubic-bezier(.22,1,.36,1);
+}
+.nav-link:hover        { color: rgba(255,255,255,.75); }
+.nav-link:hover::after { width: 100%; }
+.nav-link.active       { color: #fff; font-weight: 700; }
+.nav-link.active::after { width: 100%; }
+
+/* ─────────────────────────────────────────────
+   BUTTONS
+───────────────────────────────────────────── */
+.btn-gold {
+  background: linear-gradient(110deg, #7c6a46 0%, #a8925e 50%, #7c6a46 100%);
+  background-size: 200% auto;
+  color: #fff;
+  transition: background-position 0.6s ease, transform 0.2s, box-shadow 0.2s;
+}
+.btn-gold:hover {
+  background-position: right center;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(124,106,70,.45);
+}
+.btn-gold:active { transform: translateY(0); }
+
+.btn-outline {
+  border: 2px solid rgba(255,255,255,.6);
+  color: #fff;
+  backdrop-filter: blur(4px);
+  transition: background 0.25s, border-color 0.25s, transform 0.2s;
+}
+.btn-outline:hover {
+  background: rgba(255,255,255,.15);
+  border-color: #fff;
+  transform: translateY(-2px);
+}
+
+.btn-pulse { animation: pulse-soft 2.4s ease infinite; }
+
+/* ─────────────────────────────────────────────
+   CARDS
+───────────────────────────────────────────── */
+.card-lift {
+  transition: transform 0.35s cubic-bezier(.22,1,.36,1),
+              box-shadow 0.35s cubic-bezier(.22,1,.36,1);
+}
+.card-lift:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 24px 48px rgba(0,0,0,.13);
+}
+
+.facility-card {
+  transition: transform 0.35s cubic-bezier(.22,1,.36,1),
+              background 0.3s,
+              box-shadow 0.35s;
+}
+.facility-card:hover {
+  transform: translateY(-6px) scale(1.03);
+  background: #7c6a46;
+  box-shadow: 0 16px 40px rgba(124,106,70,.3);
+}
+.facility-card:hover p,
+.facility-card:hover svg { color: #fff !important; }
+
+/* ─────────────────────────────────────────────
+   IMAGE ZOOM on hover
+───────────────────────────────────────────── */
+.img-zoom {
+  overflow: hidden;
+}
+.img-zoom > div {
+  transition: transform 0.6s cubic-bezier(.22,1,.36,1);
+}
+.img-zoom:hover > div { transform: scale(1.07); }
+
+/* ─────────────────────────────────────────────
+   FLOATING PLAY BUTTON
+───────────────────────────────────────────── */
+.play-btn { animation: float 3.2s ease-in-out infinite; }
+
+/* ─────────────────────────────────────────────
+   DIVIDER LINE GROW
+───────────────────────────────────────────── */
+.line-grow {
+  animation: lineGrow 0.9s cubic-bezier(.22,1,.36,1) both;
+  animation-delay: 0.4s;
+}
+
+/* ─────────────────────────────────────────────
+   TESTIMONIAL CARD
+───────────────────────────────────────────── */
+.testimonial-card {
+  transition: transform 0.35s cubic-bezier(.22,1,.36,1), box-shadow 0.35s;
+}
+.testimonial-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 44px rgba(0,0,0,.1);
+}
+
+/* ─────────────────────────────────────────────
+   FOOTER LINK HOVER
+───────────────────────────────────────────── */
+.footer-link {
+  transition: opacity 0.2s, transform 0.2s;
+  display: inline-block;
+}
+.footer-link:hover { opacity: .7; transform: translateX(4px); }
